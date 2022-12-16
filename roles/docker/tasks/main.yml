@@ -1,5 +1,6 @@
-# Install Docker Engine
+# Install Docker Engine and manage Docker as non-root user
 # https://docs.docker.com/engine/install/ubuntu/
+# https://docs.docker.com/engine/install/linux-postinstall/
 
 - name: Install prerequisites
   ansible.builtin.apt:
@@ -35,3 +36,19 @@
     - docker-ce-cli
     - containerd.io
     - docker-compose-plugin
+
+- name: Create Docker group
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Get current non-root user
+  ansible.builtin.cmd: echo $USER
+  become: no
+  register: current_user
+
+- name: Add current user to docker group
+  ansible.builtin.user:
+    name: "{{ current_user.stdout }}"
+    groups: docker
+    append: yes

@@ -1,0 +1,12 @@
+# Configure Grub, disable unnecessary services and install common packages
+
+- name: Configure Grub to ignore errors on certain drivers
+  ansible.builtin.replace:
+    path: /etc/default/grub
+    regexp: 
+
+- name: Stop and disable Apache2
+  ansible.builtin.service:
+    name: apache2
+    state: stopped
+    enabled: no

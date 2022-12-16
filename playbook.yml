@@ -1,0 +1,13 @@
+- name: Configure my workstation quickly
+  hosts: localhost
+  connection: local
+  become: true
+  roles:
+  - common
+  - docker
+  - terraform
+  - kubernetes
+  - helm
+  - aws_cli
+  - python-packages
+  - vscode

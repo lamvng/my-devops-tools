@@ -3,10 +3,24 @@
 - name: Configure Grub to ignore errors on certain drivers
   ansible.builtin.replace:
     path: /etc/default/grub
-    regexp: 
+    regexp: '^(GRUB_CMDLINE_LINUX_DEFAULT=).*$'
+    replace: '\1"quiet splash pci=noaer pcie_aspm=off"'
+
+- name: Update GRUB after modification
+  ansible.builtin.command:
+    cmd: update-grub
 
 - name: Stop and disable Apache2
   ansible.builtin.service:
     name: apache2
     state: stopped
     enabled: no
+
+- name: Install packages
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    name:
+    - terminator
+    - bash-completion
+    - xclip

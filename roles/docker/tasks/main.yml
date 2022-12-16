@@ -44,7 +44,7 @@
 
 - name: Get current non-root user
   ansible.builtin.cmd: echo $USER
-  become: no
+  become: false
   register: current_user
 
 - name: Add current user to docker group

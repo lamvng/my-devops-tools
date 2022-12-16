@@ -19,7 +19,7 @@ The following packages and tools are installed:
   - [Terminator](https://manpages.ubuntu.com/manpages/bionic/en/man1/terminator.1.html): Multiple terminals within the same window.
   - [Screen](https://www.gnu.org/software/screen/): Launch multiple virtual shell sessions from a single session.
   - Misc packages: Xclip, 
-- [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/): Building & managing portable containers.
 - [Terraform](https://www.terraform.io/): Infrastructure-as-Code platform to provision resources from multiple providers.
 - [Kubernetes](https://kubernetes.io/): Containers and micro-services orchestrator.
 - [Helm](https://helm.sh/): Package manager and templating engine for Kubernetes.
@@ -32,4 +32,3 @@ The following packages and tools are installed:
   - [Matplotlib](https://matplotlib.org/) - [Seaborn](https://seaborn.pydata.org/): Data visualization library.
   - [PyYAML](https://pypi.org/project/PyYAML/): Python YAML file parser and emitter.
 - [Visual Studio Code](https://code.visualstudio.com/): Code editor with a lot of useful extensions.
-

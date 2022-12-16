@@ -1,0 +1,37 @@
+# Install Docker Engine
+# https://docs.docker.com/engine/install/ubuntu/
+
+- name: Install prerequisites
+  ansible.builtin.apt:
+    state: present
+    name:
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+  
+- name: Add Docker GPG key
+  ansible.builtin.shell:
+    cmd: |
+      mkdir -p /etc/apt/keyrings
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+- name: Set up the repo
+  ansible.builtin.shell:
+    cmd: >
+      echo
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  
+- name: Update APT
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install Docker
+  ansible.builtin.apt:
+    state: present
+    name:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose-plugin

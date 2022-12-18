@@ -1,12 +1,6 @@
 # Install HashiCorp Terraform
 # https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 
-- name: Install prerequisites
-  ansible.builtin.apt:
-    name:
-    - gnupg
-    - software-properties-common
-  
 - name: Install HashiCorp GPG key
   ansible.builtin.shell:
     cmd: >
@@ -25,3 +19,11 @@
   ansible.builtin.apt:
     name: terraform
     update_cache: yes
+
+- name: Add autocompletion for Terraform
+  ansible.builtin.blockinfile:
+    path: "{{ lookup('env','HOME') }}/.bashrc"
+    marker: "# Terraform Autocompletion"
+    block: |
+      complete -C /usr/bin/terraform terraform
+  become: false

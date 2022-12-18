@@ -12,9 +12,16 @@
 
 - name: Validate checksum
   ansible.builtin.shell:
-    cmd: echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+    cmd: echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
 
 - name: Install kubectl
   ansible.builtin.shell:
     cmd: sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
+- name: Add autocompletion for Kubectl
+  ansible.builtin.blockinfile:
+    path: "{{ lookup('env','HOME') }}/.bashrc"
+    marker: "# Kubectl Autocompletion"
+    block: |
+      source <(kubectl completion bash)
+  become: false

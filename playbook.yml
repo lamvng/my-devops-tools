@@ -3,16 +3,16 @@
   connection: local
   become: true
   roles:
-  - common
-  - docker
-  - terraform
-  - kubernetes
-  - helm
-  - aws_cli
-  - python-packages
-  - vscode
-  - insomnia
-  - beekeeper
-  - keepassxc
-  - virtualbox
-  - vagrant
+  # - common
+  # - docker
+  # - terraform
+  # - kubernetes
+  # - helm
+  # - aws_cli
+  # - python-packages
+  # - vscode
+  # - insomnia
+  # - beekeeper
+  # - keepassxc
+  - virtualbox_vagrant
+  # - source_bash

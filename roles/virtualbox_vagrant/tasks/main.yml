@@ -1,0 +1,26 @@
+# Install Virtualbox and Vagrant
+# VirtualBox binary download link: https://www.virtualbox.org/wiki/Linux_Downloads
+# Vagrant installation: https://developer.hashicorp.com/vagrant/docs/installation
+
+- name: "Install Virtualbox {{ virtualbox_version }} from binary"
+  ansible.builtin.apt:
+    deb: "{{ virtualbox_binary }}"
+
+- name: Download HashiCorp key
+  ansible.builtin.shell:
+    cmd: >
+      wget -O- https://apt.releases.hashicorp.com/gpg |
+      gpg --dearmor |
+      tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+- name: Add HashiCorp key
+  ansible.builtin.shell:
+    cmd: >
+      echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg]
+      https://apt.releases.hashicorp.com $(lsb_release -cs) main" |
+      tee /etc/apt/sources.list.d/hashicorp.list
+
+- name: Install Vagrant
+  ansible.builtin.apt:
+    name: vagrant
+    update_cache: yes

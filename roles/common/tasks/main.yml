@@ -5,6 +5,7 @@
     path: /etc/default/grub
     regexp: '^(GRUB_CMDLINE_LINUX_DEFAULT=).*$'
     replace: '\1"quiet splash pci=noaer pcie_aspm=off"'
+    backup: yes
 
 - name: Update GRUB after modification
   ansible.builtin.command:
@@ -16,11 +17,24 @@
     state: stopped
     enabled: no
 
-- name: Install packages
+- name: Install common packages
   ansible.builtin.apt:
     update_cache: yes
-    cache_valid_time: 3600
     name:
     - terminator
     - bash-completion
     - xclip
+    - xz-utils
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+    - software-properties-common
+
+- name: Add autocompletion to Bash
+  ansible.builtin.blockinfile:
+    path: "{{ lookup('env','HOME') }}/.bashrc"
+    marker: "# Enable autocompletion"
+    block: |
+      source /usr/share/bash-completion/bash_completion
+  become: false

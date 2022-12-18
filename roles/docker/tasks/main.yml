@@ -43,7 +43,8 @@
     state: present
 
 - name: Get current non-root user
-  ansible.builtin.cmd: echo $USER
+  ansible.builtin.shell: 
+    cmd: echo $USER
   become: false
   register: current_user
 

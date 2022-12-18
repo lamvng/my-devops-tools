@@ -35,6 +35,7 @@
     name:
     - terminator
     - bash-completion
+    - jq
     - xclip
     - xz-utils
     - ca-certificates

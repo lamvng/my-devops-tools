@@ -6,6 +6,12 @@
   ansible.builtin.apt:
     deb: "{{ virtualbox_binary }}"
 
+- name: "Add {{ current_user.msg }} to 'vboxusers' group"
+  ansible.builtin.user:
+    name: "{{ current_user.msg }}"
+    groups: vboxusers
+    append: yes
+
 - name: Download HashiCorp key
   ansible.builtin.shell:
     cmd: >

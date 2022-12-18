@@ -1,4 +1,16 @@
-# Configure Grub, disable unnecessary services and install common packages
+# Acquire basic informations, configure Grub, disable unnecessary services and install common packages
+
+- name: Acquire current user
+  become: false
+  ansible.builtin.debug:
+    msg: "{{ lookup('env', 'USER') }}"
+  register: current_user
+
+- name: Acquire current home directory
+  become: false
+  ansible.builtin.debug:
+    msg: "{{ lookup('env', 'HOME') }}"
+  register: current_home
 
 - name: Configure Grub to ignore errors on certain drivers
   ansible.builtin.replace:
@@ -33,7 +45,7 @@
 
 - name: Add autocompletion to Bash
   ansible.builtin.blockinfile:
-    path: "{{ lookup('env','HOME') }}/.bashrc"
+    path: "{{ current_home.stdout }}/.bashrc"
     marker: "# Enable autocompletion"
     block: |
       source /usr/share/bash-completion/bash_completion

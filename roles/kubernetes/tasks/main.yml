@@ -20,7 +20,7 @@
 
 - name: Add autocompletion for Kubectl
   ansible.builtin.blockinfile:
-    path: "{{ lookup('env','HOME') }}/.bashrc"
+    path: "{{ current_home.stdout }}/.bashrc"
     marker: "# Kubectl Autocompletion"
     block: |
       source <(kubectl completion bash)

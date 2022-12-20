@@ -29,7 +29,7 @@
     state: stopped
     enabled: no
 
-- name: Install common packages
+- name: Install common packages from APT source
   ansible.builtin.apt:
     update_cache: yes
     name:
@@ -43,6 +43,11 @@
     - gnupg
     - lsb-release
     - software-properties-common
+
+- name: Install Drawio from .deb package
+  ansible.builtin.apt:
+    deb: https://github.com/jgraph/drawio-desktop/releases/download/v20.6.2/drawio-amd64-20.6.2.deb
+    clean: yes
 
 - name: Add autocompletion to Bash
   ansible.builtin.blockinfile:

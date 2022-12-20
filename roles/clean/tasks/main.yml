@@ -1,0 +1,7 @@
+# Clean local repository
+
+- name: Clean local repository
+  ansible.builtin.apt:
+    clean: yes
+    autoclean: yes
+    autoremove: yes

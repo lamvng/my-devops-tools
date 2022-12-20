@@ -33,6 +33,7 @@
   ansible.builtin.apt:
     update_cache: yes
     name:
+    - git-all
     - terminator
     - bash-completion
     - jq

@@ -51,7 +51,7 @@
 
 - name: Add autocompletion to Bash
   ansible.builtin.blockinfile:
-    path: "{{ current_home.stdout }}/.bashrc"
+    path: "{{ current_home.msg }}/.bashrc"
     marker: "# Enable autocompletion"
     block: |
       source /usr/share/bash-completion/bash_completion

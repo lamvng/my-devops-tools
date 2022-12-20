@@ -14,5 +14,5 @@
   # - insomnia
   # - beekeeper
   # - keepassxc
-  - virtualbox_vagrant
-  # - source_bash
+  # - virtualbox_vagrant
+  - clean

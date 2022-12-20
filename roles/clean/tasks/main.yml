@@ -5,3 +5,7 @@
     clean: yes
     autoclean: yes
     autoremove: yes
+
+- name: Source bashrc
+  ansible.builtin.shell:
+    cmd: "source {{ current_home.msg }}/.bashrc"

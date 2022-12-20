@@ -22,7 +22,7 @@
 
 - name: Add autocompletion for Terraform
   ansible.builtin.blockinfile:
-    path: "{{ current_home.stdout }}/.bashrc"
+    path: "{{ current_home.msg }}/.bashrc"
     marker: "# Terraform Autocompletion"
     block: |
       complete -C /usr/bin/terraform terraform

@@ -4,6 +4,7 @@
   become: true
   roles:
   # - common
+  # - logrotate
   # - docker
   # - terraform
   # - kubernetes
@@ -14,5 +15,4 @@
   # - insomnia
   # - beekeeper
   # - keepassxc
-  # - virtualbox_vagrant
   - clean

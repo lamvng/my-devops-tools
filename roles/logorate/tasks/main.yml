@@ -1,0 +1,6 @@
+# Configure logrotate
+
+- name: Install logrotate
+  ansible.builtin.apt:
+    name: logrotate
+    state: present

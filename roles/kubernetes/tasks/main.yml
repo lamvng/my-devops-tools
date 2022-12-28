@@ -25,3 +25,5 @@
     block: |
       source <(kubectl completion bash)
   become: false
+  notify:
+  - Source bashrc

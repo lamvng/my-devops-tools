@@ -1,0 +1,29 @@
+# Configuring some particular options
+
+- name: Configure Grub to ignore errors on certain drivers
+  ansible.builtin.replace:
+    path: /etc/default/grub
+    regexp: '^(GRUB_CMDLINE_LINUX_DEFAULT=).*$'
+    replace: '\1"quiet splash pci=noaer pcie_aspm=off"'
+    backup: yes
+  notify:
+  - Update GRUB
+
+- name: Stop and disable Apache2
+  ansible.builtin.service:
+    name: apache2
+    state: stopped
+    enabled: no
+
+- name: Acquire default display protocol
+  become: false
+  ansible.builtin.debug:
+    msg: "{{ lookup('env', 'XDG_SESSION_TYPE') }}"
+  register: display_protocol
+
+- name: Disable Wayland (Share screen problems)
+  ansible.builtin.lineinfile:
+    path: /etc/gdm3/custom.conf
+    regexp: '^.*WaylandEnable.*$'
+    replace: 'WaylandEnable=false'
+    backup: yes

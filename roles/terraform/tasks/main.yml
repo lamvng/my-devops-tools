@@ -19,6 +19,8 @@
   ansible.builtin.apt:
     name: terraform
     update_cache: yes
+    notify:
+    - Clean local repo
 
 - name: Add autocompletion for Terraform
   ansible.builtin.blockinfile:
@@ -27,3 +29,5 @@
     block: |
       complete -C /usr/bin/terraform terraform
   become: false
+  notify:
+  - Source bashrc

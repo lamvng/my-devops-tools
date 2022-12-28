@@ -36,6 +36,8 @@
     - docker-ce-cli
     - containerd.io
     - docker-compose-plugin
+    notify:
+    - Clean local repo
 
 - name: Create Docker group
   ansible.builtin.group:

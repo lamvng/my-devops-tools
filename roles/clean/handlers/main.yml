@@ -1,0 +1,16 @@
+# Clean local repository and reload services
+
+- name: Clean local repo
+  ansible.builtin.apt:
+    clean: yes
+    autoclean: yes
+    autoremove: yes
+
+- name: Source bashrc
+  become: false
+  ansible.builtin.shell:
+    cmd: "source {{ current_home.msg }}/.bashrc"
+
+- name: Update GRUB
+  ansible.builtin.command:
+    cmd: update-grub

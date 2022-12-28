@@ -1,34 +1,5 @@
 # Acquire basic informations, configure Grub, disable unnecessary services and install common packages
 
-- name: Acquire current user
-  become: false
-  ansible.builtin.debug:
-    msg: "{{ lookup('env', 'USER') }}"
-  register: current_user
-
-- name: Acquire current home directory
-  become: false
-  ansible.builtin.debug:
-    msg: "{{ lookup('env', 'HOME') }}"
-  register: current_home
-
-- name: Configure Grub to ignore errors on certain drivers
-  ansible.builtin.replace:
-    path: /etc/default/grub
-    regexp: '^(GRUB_CMDLINE_LINUX_DEFAULT=).*$'
-    replace: '\1"quiet splash pci=noaer pcie_aspm=off"'
-    backup: yes
-
-- name: Update GRUB after modification
-  ansible.builtin.command:
-    cmd: update-grub
-
-- name: Stop and disable Apache2
-  ansible.builtin.service:
-    name: apache2
-    state: stopped
-    enabled: no
-
 - name: Install common packages from APT source
   ansible.builtin.apt:
     update_cache: yes
@@ -43,6 +14,8 @@
     - gnupg
     - lsb-release
     - software-properties-common
+    notify:
+    - Clean local repo
 
 - name: Install Drawio from .deb package
   ansible.builtin.apt:
@@ -56,3 +29,5 @@
     block: |
       source /usr/share/bash-completion/bash_completion
   become: false
+  notify:
+  - Source bashrc

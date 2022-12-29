@@ -4,11 +4,12 @@
   become: true
   roles:
   # - particular_configs
+  - init
   # - packages
   # - logrotate
   # - docker
   # - terraform
-  # - kubernetes
+  - kubernetes
   # - helm
   # - aws_cli
   # - python-packages
@@ -16,3 +17,4 @@
   # - insomnia
   # - beekeeper
   # - keepassxc
+  - clean

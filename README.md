@@ -12,6 +12,12 @@ Before launching the playbook, Pip and Ansible must be installed first using `in
 chmod +x init.sh && ./init.sh
 ```
 
+Then execute the playbook as privileged user:
+
+```bash
+ansible-playbook playbook.yml --ask-become-pass
+```
+
 ## Installed packages
 
 The following packages and tools are installed:

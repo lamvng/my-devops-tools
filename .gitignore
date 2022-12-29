@@ -1,0 +1,14 @@
+**
+
+# gitignore
+!.gitignore
+
+# Docs
+!LICENSE
+!README.md
+
+# Playbooks
+!roles/
+!roles/**
+!playbook.yml
+!init.sh

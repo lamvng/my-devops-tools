@@ -3,54 +3,79 @@
 # Krew: https://krew.sigs.k8s.io/docs/user-guide/setup/install/#bash
 # Kubectx & Kubens: https://github.com/ahmetb/kubectx
 
-- name: Download kubectl binary
-  ansible.builtin.shell:
-    cmd: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+# - name: Download kubectl binary
+#   ansible.builtin.shell:
+#     cmd: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
-- name: Download checksum file
-  ansible.builtin.shell:
-    cmd: curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+# - name: Download checksum file
+#   ansible.builtin.shell:
+#     cmd: curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 
-- name: Validate checksum
-  ansible.builtin.shell:
-    cmd: echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
+# - name: Validate checksum
+#   ansible.builtin.shell:
+#     cmd: echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
 
-- name: Install kubectl
-  ansible.builtin.shell:
-    cmd: install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+# - name: Install kubectl
+#   ansible.builtin.shell:
+#     cmd: install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-- name: Add Kubectl autocompletion
-  ansible.builtin.blockinfile:
-    path: "{{ current_home.msg }}/.bashrc"
-    marker: "# Kubectl Autocompletion"
-    block: |
-      source <(kubectl completion bash)
-  become: false
-  notify:
-  - Source bashrc
+# - name: Add Kubectl autocompletion
+#   ansible.builtin.blockinfile:
+#     path: "{{ current_home.msg }}/.bashrc"
+#     marker: "# Kubectl Autocompletion"
+#     block: |
+#       source <(kubectl completion bash)
+#   become: false
+#   notify:
+#   - Source bashrc
 
-- name: Install Krew
-  ansible.builtin.script: krew_install.sh
+# - name: Install Krew
+#   ansible.builtin.script: krew_install.sh
+#   args:
+#     executable: /bin/bash
+#   become: false
+
+# - name: Add Krew to .bashrc
+#   ansible.builtin.blockinfile:
+#     path: "{{ current_home.msg }}/.bashrc"
+#     marker: "# Krew"
+#     block: |
+#       export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+#   become: false
+#   notify:
+#   - Source bashrc
+
+# - name: Add Krew autocompletion
+#   ansible.builtin.blockinfile:
+#     path: "{{ current_home.msg }}/.bashrc"
+#     marker: "# Krew Autocompletion"
+#     block: |
+#       source <(kubectl krew completion bash)
+#   become: false
+#   notify:
+#   - Source bashrc
+
+# - name: Install Kubectx & Kubens
+#   ansible.builtin.shell:
+#     cmd: |
+#       kubectl krew install ctx
+#       kubectl krew install ns
+#   args:
+#     executable: /bin/bash
+#   become: false
+
+- name: Configure Kubectx & Kubens autocompletion
+  ansible.builtin.script: kubectx_completion.sh
   args:
     executable: /bin/bash
   become: false
 
-- name: Add Krew to .bashrc
+- name: Add Kubectx & Kubens to bash
   ansible.builtin.blockinfile:
     path: "{{ current_home.msg }}/.bashrc"
-    marker: "# Krew"
+    marker: "# Kubectx Kubens Autocompletion"
     block: |
-      export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-  become: false
-  notify:
-  - Source bashrc
-
-- name: Add Krew autocompletion
-  ansible.builtin.blockinfile:
-    path: "{{ current_home.msg }}/.bashrc"
-    marker: "# Krew Autocompletion"
-    block: |
-      source <(kubectl krew completion bash)
+      export PATH={{ repos_folder.path }}/kubectx:$PATH
   become: false
   notify:
   - Source bashrc

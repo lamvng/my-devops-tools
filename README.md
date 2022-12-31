@@ -6,7 +6,7 @@ Installing my DevOps tool stack and rolling my Debian/Ubuntu workstation quickly
 
 This playbook is an [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) playbook seperated in `roles`, each one installing a tool. It is simple to configure which tool to install, by just (un)commenting the corresponding role.
 
-Before launching the playbook, Pip and Ansible must be installed first using `init.sh` script:
+Before launching the playbook, Pip and Ansible must be installed first by using `init.sh` script:
 
 ```bash
 chmod +x init.sh && ./init.sh
@@ -15,7 +15,7 @@ chmod +x init.sh && ./init.sh
 Then execute the playbook as privileged user:
 
 ```bash
-ansible-playbook playbook.yml --ask-become-pass
+ansible-playbook main.yml --ask-become-pass
 ```
 
 ## Installed packages

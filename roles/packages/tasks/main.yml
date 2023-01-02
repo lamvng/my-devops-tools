@@ -6,6 +6,7 @@
     name:
     - terminator
     - bash-completion
+    - python3-venv
     - jq
     - xclip
     - xz-utils

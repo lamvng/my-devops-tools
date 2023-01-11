@@ -39,7 +39,7 @@ The following packages and tools are installed:
   - [Pandas](https://pandas.pydata.org/): Data analysis library.
   - [Matplotlib](https://matplotlib.org/) - [Seaborn](https://seaborn.pydata.org/): Data visualization library.
   - [PyYAML](https://pypi.org/project/PyYAML/): Python YAML file parser and emitter.
-  - gitlab, pythongit
+  - gitlab, gitpython
   - ansible-runner
   - 
 - [Visual Studio Code](https://code.visualstudio.com/): Code editor with a lot of useful extensions.
